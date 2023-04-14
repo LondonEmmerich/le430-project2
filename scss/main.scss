@@ -1,0 +1,45 @@
+@use "sass:math";
+
+$contrastColor:firebrick;
+$appWidth:200px;
+
+@function calcDivMargin($width){
+  @return math.div($width,4);
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0; 
+}
+
+#app {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center; 
+}
+
+#app div {
+  margin-top: calcDivMargin($appWidth); 
+}
+  
+#app div h1 {
+  color: $contrastColor; 
+}
+
+#app div ul {
+  width: $appWidth;
+  margin: 0 auto;
+  text-align: left; 
+}
+
+#app div ul li {
+  margin-top: 10px;
+  word-break: break-all;
+  font-size: 1.1em; 
+}
+
+#app div h2 i {
+  color: $contrastColor; 
+}
