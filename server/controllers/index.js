@@ -1,24 +1,11 @@
-const example1 = (req, res) => {
-  return res.render('example1');
+const app = (req, res) => {
+  return res.render('app');
 };
 
-const example2 = (req, res) => {
-  return res.render('example2');
+const login = (req, res) => {
+  return res.render('login');
 };
 
-const example3 = (req, res) => {
-  return res.render('example3');
-};
-
-const getSongs = (req, res) => {
-  return res.json([
-    { artist: 'c418', title: 'Minecraft' },
-    { artist: 'Chris Tilton', title: 'SimCity, 2019' },
-  ]);
-};
-
-module.exports.example1 = example1;
-module.exports.example2 = example2;
-module.exports.example3 = example3;
-module.exports.getSongs = getSongs;
+module.exports.app = app;
+module.exports.login = login;
 
