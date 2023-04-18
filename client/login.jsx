@@ -1,4 +1,7 @@
-const HelloUser = (props) => {
+const React = require("react");
+const ReactDOM = require("react-dom");
+
+const LoginWindow = (props) => {
   const [username, setUsername] = React.useState(props.username);
 
   return (
@@ -11,7 +14,7 @@ const HelloUser = (props) => {
 }
 
 const init = () => {
-  ReactDOM.render( <HelloUser username='Austin' />,
+  ReactDOM.render( <LoginWindow />,
     document.getElementById('app'));
 };
 
