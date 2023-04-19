@@ -34,3 +34,7 @@ html, body {
 #app div h2 i {
   color: firebrick;
 }
+
+#error{
+  color:firebrick;
+}
