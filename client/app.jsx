@@ -4,6 +4,28 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 const helper = require("./helper.js");
 
+const getEvents = async () => {
+  let app = document.querySelector("#app");
+
+    //get all the events
+    let response = await fetch("/getEvents");
+    data = await response.json();
+    docs = data.events;
+  
+    //if there are any timelines
+    if(docs){
+      app.innerHTML += "<ul>";
+      //add them to the dropdown
+      for(let i = 0; i < docs.length; i++){
+        app.innerHTML += `<li>${docs[i].name}, ${docs[i].startDate}, ${docs[i].endDate}</li>`;
+      }
+      app.innerHTML += "</ul>";
+    }
+    else{
+      app.innerHTML = "<p>No Events for this timeline</p>";
+    }
+}
+
 const handleEvent = async (e) => {
   e.preventDefault();
 
@@ -56,6 +78,8 @@ const handleEvent = async (e) => {
   e.target.querySelector("#startMonth").value = 1;
   e.target.querySelector("#endYear").value = "";
   e.target.querySelector("#endMonth").value = 1;
+
+  getEvents();
 
   return false;
 };
@@ -185,6 +209,8 @@ const init = () => {
 
   //get all the pre-existing timelines for that user
   newTimeline("");
+
+  getEvents();
 };
 
 window.onload = init;
