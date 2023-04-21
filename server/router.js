@@ -4,6 +4,12 @@ const mid = require('./middleware');
 
 const router = (app) => {
   app.get('/app', mid.requiresLogin, controllers.app);
+
+  app.get("/timeline", mid.requiresLogin, controllers.timeline.page);
+  app.get("/getTimelines", mid.requiresLogin, controllers.timeline.getTimelines);
+  app.post("/newTimeline", mid.requiresLogin, controllers.timeline.addTimeline);
+  //app.post("/newEvent", mid.requiresLogin, controllers.timeline.editTimeline);
+
   app.get('/login', mid.requiresSecure, mid.requiresLogout, controllers.account.loginPage);
   app.post('/login', mid.requiresSecure, mid.requiresLogout, controllers.account.login);
 
