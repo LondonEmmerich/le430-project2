@@ -30,7 +30,7 @@ const EventSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
-    ref: 'Account'
+    ref: 'Account',
   },
   createdDate: {
     type: Date,
@@ -43,7 +43,7 @@ EventSchema.statics.toAPI = (doc) => ({
   name: doc.name,
   timeline: doc.timeline,
   startDate: doc.startDate,
-  endDate: doc.endDate
+  endDate: doc.endDate,
 });
 
 const EventModel = mongoose.model('Event', EventSchema);

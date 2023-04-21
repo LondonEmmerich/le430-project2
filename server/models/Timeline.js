@@ -15,7 +15,7 @@ const TimelineSchema = new mongoose.Schema({
   owner: {
     type: mongoose.Schema.ObjectId,
     required: true,
-    ref: 'Account'
+    ref: 'Account',
   },
   createdDate: {
     type: Date,
