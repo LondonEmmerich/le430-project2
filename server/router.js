@@ -8,7 +8,7 @@ const router = (app) => {
   app.get('/timeline', mid.requiresLogin, controllers.timeline.page);
   app.get('/getTimelines', mid.requiresLogin, controllers.timeline.getTimelines);
   app.post('/newTimeline', mid.requiresLogin, controllers.timeline.addTimeline);
-  app.get('/newEvent', mid.requiresLogin, controllers.timeline.getEvents);
+  app.get('/getEvents', mid.requiresLogin, controllers.timeline.getEvents);
   app.post('/newEvent', mid.requiresLogin, controllers.timeline.newEvent);
 
   app.get('/login', mid.requiresSecure, mid.requiresLogout, controllers.account.loginPage);

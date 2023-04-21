@@ -5,25 +5,33 @@ const ReactDOM = require("react-dom");
 const helper = require("./helper.js");
 
 const getEvents = async () => {
-  let app = document.querySelector("#app");
 
-    //get all the events
-    let response = await fetch("/getEvents");
-    data = await response.json();
+  console.log("Get Events");
+  let app = document.querySelector("#app");
+  let docs;
+
+  //get all the events
+  let response = await fetch(`/getEvents?timeline=${document.querySelector("#curTimeline").value}`);
+  console.log(response);
+  if(response){
+    let data = await response.json();
+    console.log(`Data: ${data}`);
     docs = data.events;
-  
-    //if there are any timelines
-    if(docs){
-      app.innerHTML += "<ul>";
-      //add them to the dropdown
-      for(let i = 0; i < docs.length; i++){
-        app.innerHTML += `<li>${docs[i].name}, ${docs[i].startDate}, ${docs[i].endDate}</li>`;
-      }
-      app.innerHTML += "</ul>";
+  }
+  console.log(`Docs: ${docs}`);
+
+  //if there are any timelines
+  if(docs){
+    app.innerHTML += "<ul>";
+    //add them to the dropdown
+    for(let i = 0; i < docs.length; i++){
+      app.innerHTML += `<li>${docs[i].name}, ${docs[i].startDate}, ${docs[i].endDate}</li>`;
     }
-    else{
-      app.innerHTML = "<p>No Events for this timeline</p>";
-    }
+    app.innerHTML += "</ul>";
+  }
+  else{
+    app.innerHTML = "<p>No Events for this timeline</p>";
+  }
 }
 
 const handleEvent = async (e) => {
@@ -206,6 +214,9 @@ const init = () => {
       document.querySelector("#newTimeline").value = "";
     }
   });
+
+  let curTimeline = document.querySelector("#curTimeline");
+  curTimeline.addEventListener("change", getEvents);
 
   //get all the pre-existing timelines for that user
   newTimeline("");

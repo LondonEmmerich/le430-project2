@@ -74,10 +74,19 @@ const newEvent = (req, res) => {
 
 const getEvents = async (req, res) => {
   try {
-    const query = { owner: req.session.account._id, timeline: req.body.timeline };
-    const docs = await Event.find(query).select('name startDate endDate').lean().exec();
+    const query = { owner: req.session.account._id };
+    const docs = await Event.find(query).select('name startDate endDate timeline').lean().exec();
+    let trimmedDocs = [];
 
-    return res.json({ events: docs });
+    console.log(req.query.timeline);
+
+    for(let i = 0; i < docs.length; i++){
+        if(docs[i].timeline === req.query.timeline){
+            trimmedDocs.append(docs[i]);
+        }
+    }
+
+    return res.json({ events: trimmedDocs });
   } catch (err) {
     console.log(err);
     return res.status(500).json({ error: 'Error retrieving events!' });
