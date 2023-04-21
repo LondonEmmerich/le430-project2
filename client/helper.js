@@ -1,5 +1,5 @@
 const handleError = (message) => {
-    document.querySelector('#error').innerHTML = message;
+    document.querySelector('#app').innerHTML = message;
   };
   
   /* Sends post requests to the server using fetch. Will look for various
@@ -15,7 +15,7 @@ const handleError = (message) => {
     });
   
     const result = await response.json();
-    document.querySelector('#error').innerHTML = "";
+    document.querySelector('#app').innerHTML = "";
   
     if(result.redirect) {
       window.location = result.redirect;
