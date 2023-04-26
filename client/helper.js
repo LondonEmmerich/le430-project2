@@ -1,10 +1,7 @@
 const handleError = (message) => {
-    document.querySelector('#app').innerHTML = message;
+    document.querySelector('.error').innerHTML = message;
   };
-  
-  /* Sends post requests to the server using fetch. Will look for various
-     entries in the response JSON object, and will handle them appropriately.
-  */
+
   const sendPost = async (url, data, handler) => {
     const response = await fetch(url, {
       method: 'POST',
@@ -15,7 +12,6 @@ const handleError = (message) => {
     });
   
     const result = await response.json();
-    document.querySelector('#app').innerHTML = "";
   
     if(result.redirect) {
       window.location = result.redirect;

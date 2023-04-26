@@ -82,7 +82,7 @@ const getEvents = async (req, res) => {
 
     for(let i = 0; i < docs.length; i++){
         if(docs[i].timeline === req.query.timeline){
-            trimmedDocs.append(docs[i]);
+            trimmedDocs.push(docs[i]);
         }
     }
 

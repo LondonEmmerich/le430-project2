@@ -8,6 +8,7 @@ const getEvents = async () => {
 
   console.log("Get Events");
   let app = document.querySelector("#app");
+  app.innerHTML = "";
   let docs;
 
   //get all the events
