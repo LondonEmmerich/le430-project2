@@ -4,6 +4,42 @@ const React = require("react");
 const ReactDOM = require("react-dom");
 const helper = require("./helper.js");
 
+const getEarliest = (docs) => {
+  let date = Number.MAX_SAFE_INTEGER;
+  for (let i = 0; i < docs.length; i += 1) {
+    const eventStart = docs[i].startDate;
+    if (date > eventStart) {
+      date = eventStart;
+    }
+  }
+
+  return date;
+};
+
+const getLatest = (docs) => {
+  let date = Number.MIN_SAFE_INTEGER;
+  for (let i = 0; i < docs.length; i += 1) {
+    const eventEnd = docs[i].endDate;
+    if (date < eventEnd) {
+      date = eventEnd;
+    }
+  }
+
+  return date;
+};
+
+const intToDate = (num) => {
+  let date = "";
+  let month = num % 12;
+  if(month === 0){
+    month = 12;
+  }
+  num -= month;
+  let year = num / 12;
+  date = `${month}/${year}`;
+  return date;
+}
+
 const getEvents = async () => {
 
   console.log("Get Events");
@@ -22,13 +58,54 @@ const getEvents = async () => {
   console.log(`Docs: ${docs}`);
 
   //if there are any timelines
-  if(docs){
-    app.innerHTML += "<ul>";
+  if(docs.length !== 0){
+    /*app.innerHTML += "<ul>";
     //add them to the dropdown
     for(let i = 0; i < docs.length; i++){
       app.innerHTML += `<li>${docs[i].name}, ${docs[i].startDate}, ${docs[i].endDate}</li>`;
     }
-    app.innerHTML += "</ul>";
+    app.innerHTML += "</ul>";*/
+
+
+    //get the base params
+    const numCells = 11;
+    let start = getEarliest(docs);
+    let end = getLatest(docs);
+    let length = end - start;
+    //the cellAmt is the amount to increase each cell
+    let cellAmt = length / numCells;
+    let table = "<table>";
+
+    //for each event
+    for(let i = 0; i < docs.length; i++){
+        table += `<tr><td>${docs[i].name}</td>`;
+        let val = start;
+        //if the cell is between the start and end, 
+        //with leeway for being inbetween cells,
+        //color it in
+        for(let cell = 1; cell <= numCells + 1; cell++){
+            if(docs[i].start <= val + cellAmt && docs[i].end >= val - cellAmt){
+                table += `<td class="filled"></td>`;
+            }
+            else{
+                table += `<td class="empty"></td>`;
+            }
+            //increase the value
+            val = val + cellAmt;
+        }
+        table += `</tr>`;
+    }
+    //fill in the timeline at the bottom of the table
+    table += `<tr><td></td>`;
+    let val = start;
+    for(let i = 0; i < numCells + 1; i++){
+        //convert the value back into a date to put it on the timeline
+        let output = Math.round(val);
+        table += `<td class="timeline">${intToDate(output)}</td>`;
+        val = val + cellAmt;
+    }
+    table += `</table>`;
+    app.innerHTML = table;
   }
   else{
     app.innerHTML = "<p>No Events for this timeline</p>";
@@ -51,8 +128,8 @@ const handleEvent = async (e) => {
     return false;
   }
 
-  let startDate = (startYear * 12) + e.target.querySelector("#startMonth").value;
-  let endDate = (endYear * 12) + e.target.querySelector("#endMonth").value;
+  let startDate = (startYear * 12) + parseInt(e.target.querySelector("#startMonth").value);
+  let endDate = (endYear * 12) + parseInt(e.target.querySelector("#endMonth").value);
   //make sure that the start is before the end
   if(startDate > endDate){
     let tempDate = startDate;
