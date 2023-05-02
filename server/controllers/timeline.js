@@ -93,10 +93,7 @@ const getEvents = async (req, res) => {
   }
 };
 
-const page = (req, res) => res.render('app');
-
 module.exports.addTimeline = addTimeline;
 module.exports.getTimelines = getTimelines;
 module.exports.newEvent = newEvent;
 module.exports.getEvents = getEvents;
-module.exports.page = page;

@@ -59,14 +59,6 @@ const getEvents = async () => {
 
   //if there are any timelines
   if(docs.length !== 0){
-    /*app.innerHTML += "<ul>";
-    //add them to the dropdown
-    for(let i = 0; i < docs.length; i++){
-      app.innerHTML += `<li>${docs[i].name}, ${docs[i].startDate}, ${docs[i].endDate}</li>`;
-    }
-    app.innerHTML += "</ul>";*/
-
-
     //get the base params
     const numCells = 11;
     let start = getEarliest(docs);
@@ -84,7 +76,7 @@ const getEvents = async () => {
         //with leeway for being inbetween cells,
         //color it in
         for(let cell = 1; cell <= numCells + 1; cell++){
-            if(docs[i].start <= val + cellAmt && docs[i].end >= val - cellAmt){
+            if(docs[i].startDate <= val + cellAmt && docs[i].endDate >= val - cellAmt){
                 table += `<td class="filled"></td>`;
             }
             else{
@@ -110,6 +102,16 @@ const getEvents = async () => {
   else{
     app.innerHTML = "<p>No Events for this timeline</p>";
   }
+}
+
+const changePassword = async (password) => {
+  let post = await fetch("/changePassword", {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({password}),
+  });
 }
 
 const handleEvent = async (e) => {
@@ -278,10 +280,20 @@ const EventForm = (props) => {
   );
 };
 
+const ChangePasswordForm = (props) => {
+  return(<div>
+      <label>New Password: </label>
+      <input type="password" id="newPassword"></input>
+      <button id="psswdBtn">Change Password</button>
+    </div>
+  );
+}
+
 const init = () => {
   //add the two forms to the page
   ReactDOM.render(<TimelineForm />, document.getElementById('timeline'));
   ReactDOM.render(<EventForm />, document.getElementById('form'));
+  ReactDOM.render(<ChangePasswordForm/>, document.getElementById("changePassword"));
 
   //set up the new timeline creator
   let timelineBtn = document.querySelector("#newTimelineBtn");
@@ -290,6 +302,15 @@ const init = () => {
     if(name !== ""){
       newTimeline({name});
       document.querySelector("#newTimeline").value = "";
+    }
+  });
+
+  let changeBtn = document.querySelector("#psswdBtn");
+  changeBtn.addEventListener("click", () => {
+    let psswd = document.querySelector("#newPassword").value;
+    if(psswd !== ""){
+      changePassword(psswd);
+      document.querySelector("#newPassword").value = "";
     }
   });
 

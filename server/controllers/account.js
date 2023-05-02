@@ -56,9 +56,21 @@ const signup = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  if(!req.body.password){
+    return res.status(400).json({error:"Password required"});
+  }
+
+  let newPassword = await Account.generateHash(req.body.password);
+  await Account.updateOne(
+    {_id:req.session.account._id}, {$set: {password:newPassword}});
+  return res.status(200).json({message:"Update successful"});
+}
+
 module.exports = {
   loginPage,
   login,
   logout,
   signup,
+  changePassword,
 };
