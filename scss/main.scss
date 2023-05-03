@@ -1,45 +1,74 @@
 @use "sass:math";
 
-$contrastColor:firebrick;
-$appWidth:200px;
-
-@function calcDivMargin($width){
-  @return math.div($width,4);
-}
+$appWidth:100%;
 
 html, body {
   height: 100%;
-  width: 100%;
+  width: $appWidth;
   margin: 0;
   padding: 0; 
+  display:flex;
+  flex-direction:column;
+  align-items: center;
 }
 
-#app {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center; 
-}
-
-#app div {
-  margin-top: calcDivMargin($appWidth); 
-}
-  
-#app div h1 {
-  color: $contrastColor; 
-}
-
-#app div ul {
+nav{
+  display:flex;
   width: $appWidth;
-  margin: 0 auto;
-  text-align: left; 
+  justify-content: left;
+  border-bottom: 1px solid black;
 }
 
-#app div ul li {
-  margin-top: 10px;
-  word-break: break-all;
-  font-size: 1.1em; 
+div{
+  margin:5px;
 }
 
-#app div h2 i {
-  color: $contrastColor; 
+#form{
+  border-top: 1px solid black;
+
+  form{
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+
+    div{
+      margin:3px;
+    }
+
+    #titleDiv{
+      margin-top:10px;
+    }
+  }
+
+  #startDiv, #endDiv{
+    margin:1px;
+    display:flex;
+    justify-content: right;
+
+  }
+}
+
+.filled{
+  background-color: blue;
+}
+
+td{
+  border: 1px solid black;
+  min-width:5vw;
+  text-align:right;
+}
+
+td.timeline{
+  font-size:.8em;
+  text-align:center;
+}
+
+#loginForm, #signupForm{
+  display:flex;
+  flex-direction: column;
+  align-items:center;
+}
+
+.formSubmit{
+  margin-top:5px;
 }

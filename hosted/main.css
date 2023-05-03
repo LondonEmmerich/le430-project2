@@ -3,42 +3,63 @@ html, body {
   width: 100%;
   margin: 0;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-#app {
-  width: 50%;
-  margin: 0 auto;
-  text-align: center;
+nav {
+  display: flex;
+  width: 100%;
+  justify-content: left;
+  border-bottom: 1px solid black;
 }
 
-#app div {
-  margin-top: 50px;
+div {
+  margin: 5px;
 }
 
-#app div h1 {
-  color: firebrick;
+#form {
+  border-top: 1px solid black;
 }
-
-#app div ul {
-  width: 200px;
-  margin: 0 auto;
-  text-align: left;
+#form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-#app div ul li {
+#form form div {
+  margin: 3px;
+}
+#form form #titleDiv {
   margin-top: 10px;
-  word-break: break-all;
-  font-size: 1.1em;
 }
-
-#app div h2 i {
-  color: firebrick;
-}
-
-#error{
-  color:firebrick;
+#form #startDiv, #form #endDiv {
+  margin: 1px;
+  display: flex;
+  justify-content: right;
 }
 
 .filled {
-  background-color:blue;
+  background-color: blue;
+}
+
+td {
+  border: 1px solid black;
+  min-width: 5vw;
+  text-align: right;
+}
+
+td.timeline {
+  font-size: 0.8em;
+  text-align: center;
+}
+
+#loginForm, #signupForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formSubmit {
+  margin-top: 5px;
 }

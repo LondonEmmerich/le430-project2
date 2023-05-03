@@ -70,7 +70,7 @@ const getEvents = async () => {
 
     //for each event
     for(let i = 0; i < docs.length; i++){
-        table += `<tr><td>${docs[i].name}</td>`;
+        table += `<tr><td class="event">${docs[i].name}</td>`;
         let val = start;
         //if the cell is between the start and end, 
         //with leeway for being inbetween cells,
@@ -210,7 +210,7 @@ const newTimeline = async (name) => {
 const TimelineForm = (props) => {
   return (
     <div>
-      <label>New Timeline Name:</label>
+      <label>New Timeline Name: </label>
       <input type="text" id="newTimeline"></input>
       <button id="newTimelineBtn">
         Create
@@ -229,16 +229,17 @@ const EventForm = (props) => {
     method="POST"
     className="eventForm">
       <div id="titleDiv">
-          <label>Timeline:</label>
+          <label>Timeline: </label>
           <select id="curTimeline">
             <option value="timeline0">timeline0</option>
           </select>
       </div>
       <div id="eventDiv">
-          <label>Event:</label>
+          <label>New Event: </label>
           <input type="text" id="event"></input>
       </div>
       <div id="dateDiv">
+        <div id="startDiv">
           <label>Start:</label>
           <input type="text" id="startYear" placeholder="Year"></input>
           <select id="startMonth">
@@ -255,6 +256,8 @@ const EventForm = (props) => {
             <option value="11">November</option>
             <option value="12">December</option>
           </select>
+        </div>
+        <div id="endDiv">
           <label>End:</label>
           <input type="text" id="endYear" placeholder="Year"></input>
           <select id="endMonth">
@@ -271,6 +274,7 @@ const EventForm = (props) => {
             <option value="11">November</option>
             <option value="12">December</option>
           </select>
+        </div>
       </div>
       <div id="buttons">
           <input className="makeEvent" type="submit" value="Make Event"></input>
