@@ -240,7 +240,7 @@ const EventForm = (props) => {
       </div>
       <div id="dateDiv">
         <div id="startDiv">
-          <label>Start:</label>
+          <label>Start: </label>
           <input type="text" id="startYear" placeholder="Year"></input>
           <select id="startMonth">
             <option value="1">January</option>
@@ -258,7 +258,7 @@ const EventForm = (props) => {
           </select>
         </div>
         <div id="endDiv">
-          <label>End:</label>
+          <label>End: </label>
           <input type="text" id="endYear" placeholder="Year"></input>
           <select id="endMonth">
             <option value="1">January</option>
